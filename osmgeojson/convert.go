@@ -30,6 +30,15 @@ type relationSummary struct {
 	Tags map[string]string `json:"tags"`
 }
 
+var nodeMap map[osm.NodeID]*osm.Node
+
+func buildNodeMap(nodes osm.Nodes) {
+	nodeMap = make(map[osm.NodeID]*osm.Node, len(nodes))
+	for i := range nodes {
+		nodeMap[nodes[i].ID] = nodes[i]
+	}
+}
+
 // Convert takes a set of osm elements and converts them
 // to a geojson feature collection.
 func Convert(o *osm.OSM, opts ...Option) (*geojson.FeatureCollection, error) {
@@ -37,6 +46,8 @@ func Convert(o *osm.OSM, opts ...Option) (*geojson.FeatureCollection, error) {
 		osm:       o,
 		skippable: make(map[osm.WayID]struct{}),
 	}
+
+	buildNodeMap(o.Nodes)
 
 	for _, opt := range opts {
 		if err := opt(ctx); err != nil {
@@ -153,10 +164,10 @@ func Convert(o *osm.OSM, opts ...Option) (*geojson.FeatureCollection, error) {
 // the nodes+ways aren't augmented (ie. include the lat/lon on them).
 func (ctx *context) getNode(id osm.NodeID) *osm.Node {
 	if ctx.nodeMap == nil {
-		ctx.nodeMap = make(map[osm.NodeID]*osm.Node, len(ctx.osm.Nodes))
-		for _, n := range ctx.osm.Nodes {
-			ctx.nodeMap[n.ID] = n
+		if node, exists := nodeMap[id]; exists {
+			return node
 		}
+		return nil
 	}
 
 	return ctx.nodeMap[id]
