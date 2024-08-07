@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/paulmach/osm"
+	"github.com/koudaimiwa/osm"
 )
 
 // NoHistoryError is returned if there is no entry in the history

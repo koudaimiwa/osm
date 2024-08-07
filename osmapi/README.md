@@ -1,5 +1,4 @@
-osm/osmapi [![Godoc Reference](https://godoc.org/github.com/paulmach/osm/osmapi?status.svg)](https://godoc.org/github.com/paulmach/osm/osmapi)
-==========
+# osm/osmapi [![Godoc Reference](https://godoc.org/github.com/koudaimiwa/osm/osmapi?status.svg)](https://godoc.org/github.com/koudaimiwa/osm/osmapi)
 
 Package osmapi provides an interface to the [OSM v0.6 API](https://wiki.openstreetmap.org/wiki/API_v0.6).
 
@@ -52,13 +51,13 @@ func NotesSearch(ctx context.Context, query string, opts ...NotesOption) (osm.No
 func User(ctx context.Context, id osm.UserID) (*osm.User, error)
 ```
 
-See the [godoc reference](https://godoc.org/github.com/paulmach/osm/osmapi)
+See the [godoc reference](https://godoc.org/github.com/koudaimiwa/osm/osmapi)
 for more details.
 
 ## Rate limiting
 
 This package can make sure of [`x/time/rate.Limiter`](https://godoc.org/golang.org/x/time/rate#Limiter)
- to throttle requests to the official api. Example usage:
+to throttle requests to the official api. Example usage:
 
 ```go
 // 10 qps

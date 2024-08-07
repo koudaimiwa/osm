@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/paulmach/osm"
-	"github.com/paulmach/osm/annotate/shared"
+	"github.com/koudaimiwa/osm"
+	"github.com/koudaimiwa/osm/annotate/shared"
 )
 
 var (

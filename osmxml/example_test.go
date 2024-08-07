@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/paulmach/osm"
-	"github.com/paulmach/osm/osmxml"
+	"github.com/koudaimiwa/osm"
+	"github.com/koudaimiwa/osm/osmxml"
 )
 
 func ExampleScanner() {

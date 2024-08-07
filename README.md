@@ -1,37 +1,37 @@
-# osm [![CI](https://github.com/paulmach/osm/workflows/CI/badge.svg)](https://github.com/paulmach/osm/actions?query=workflow%3ACI+event%3Apush) [![Go Report Card](https://goreportcard.com/badge/github.com/paulmach/osm)](https://goreportcard.com/report/github.com/paulmach/osm) [![Go Reference](https://pkg.go.dev/badge/github.com/paulmach/osm.svg)](https://pkg.go.dev/github.com/paulmach/osm)
+# osm [![CI](https://github.com/koudaimiwa/osm/workflows/CI/badge.svg)](https://github.com/koudaimiwa/osm/actions?query=workflow%3ACI+event%3Apush) [![Go Report Card](https://goreportcard.com/badge/github.com/koudaimiwa/osm)](https://goreportcard.com/report/github.com/koudaimiwa/osm) [![Go Reference](https://pkg.go.dev/badge/github.com/koudaimiwa/osm.svg)](https://pkg.go.dev/github.com/koudaimiwa/osm)
 
 This package is a general purpose library for reading, writing and working
 with [OpenStreetMap](https://osm.org) data in Go (golang). It has the ability to:
 
--   read/write [OSM XML](https://wiki.openstreetmap.org/wiki/OSM_XML)
--   read/write [OSM JSON](https://wiki.openstreetmap.org/wiki/OSM_JSON),
-    a format returned by the Overpass API.
--   efficiently parse [OSM PBF](https://wiki.openstreetmap.org/wiki/PBF_Format) data files available at
-    [planet.osm.org](https://planet.osm.org/)
+- read/write [OSM XML](https://wiki.openstreetmap.org/wiki/OSM_XML)
+- read/write [OSM JSON](https://wiki.openstreetmap.org/wiki/OSM_JSON),
+  a format returned by the Overpass API.
+- efficiently parse [OSM PBF](https://wiki.openstreetmap.org/wiki/PBF_Format) data files available at
+  [planet.osm.org](https://planet.osm.org/)
 
 Made available by the package are the following types:
 
--   Node
--   Way
--   Relation
--   Changeset
--   Note
--   User
+- Node
+- Way
+- Relation
+- Changeset
+- Note
+- User
 
 And the following “container” types:
 
--   OSM - container returned via API
--   Change - used by the replication API
--   Diff - corresponds to [Overpass Augmented Diffs](https://wiki.openstreetmap.org/wiki/Overpass_API/Augmented_Diffs)
+- OSM - container returned via API
+- Change - used by the replication API
+- Diff - corresponds to [Overpass Augmented Diffs](https://wiki.openstreetmap.org/wiki/Overpass_API/Augmented_Diffs)
 
 ## List of sub-package utilities
 
--   [`annotate`](annotate) - adds lon/lat, version, changeset and orientation data to way and relation members
--   [`osmapi`](osmapi) - supports all the v0.6 read/data endpoints
--   [`osmgeojson`](osmgeojson) - OSM to GeoJSON conversion compatible with [osmtogeojson](https://github.com/tyrasd/osmtogeojson)
--   [`osmpbf`](osmpbf) - stream processing of `*.osm.pbf` files
--   [`osmxml`](osmxml) - stream processing of `*.osm` xml files
--   [`replication`](replication) - fetch replication state and change files
+- [`annotate`](annotate) - adds lon/lat, version, changeset and orientation data to way and relation members
+- [`osmapi`](osmapi) - supports all the v0.6 read/data endpoints
+- [`osmgeojson`](osmgeojson) - OSM to GeoJSON conversion compatible with [osmtogeojson](https://github.com/tyrasd/osmtogeojson)
+- [`osmpbf`](osmpbf) - stream processing of `*.osm.pbf` files
+- [`osmxml`](osmxml) - stream processing of `*.osm` xml files
+- [`replication`](replication) - fetch replication state and change files
 
 ## Concepts
 
@@ -111,7 +111,7 @@ They can be enabled with something like this:
 ```go
 import (
   jsoniter "github.com/json-iterator/go"
-  "github.com/paulmach/osm"
+  "github.com/koudaimiwa/osm"
 )
 
 var c = jsoniter.Config{

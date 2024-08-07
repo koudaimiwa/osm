@@ -1,14 +1,13 @@
-osm/osmgeojson [![Godoc Reference](https://godoc.org/github.com/paulmach/osm/osmgeojson?status.svg)](https://godoc.org/github.com/paulmach/osm/osmgeojson)
-==============
+# osm/osmgeojson [![Godoc Reference](https://godoc.org/github.com/koudaimiwa/osm/osmgeojson?status.svg)](https://godoc.org/github.com/koudaimiwa/osm/osmgeojson)
 
 Package `osmgeojson` converts OSM data to GeoJSON. It is a **full** port of the
 nodejs library [osmtogeojson](https://github.com/tyrasd/osmtogeojson) and sports
 the same features and tests (plus more):
 
-* real OSM polygon detection
-* OSM multipolygon support, e.g. buildings with holes become proper multipolygons
-* supports annotated geometries
-* well tested
+- real OSM polygon detection
+- OSM multipolygon support, e.g. buildings with holes become proper multipolygons
+- supports annotated geometries
+- well tested
 
 ### Usage
 
@@ -34,33 +33,32 @@ fmt.Println(string(gj))
 ### Options
 
 The package provides several options to control what is included in the feature properties.
-If possible, excluding some of the extra properties	can greatly improve the performance.
+If possible, excluding some of the extra properties can greatly improve the performance.
 All of the options **default to false**, i.e. everything will be included.
 
-* `NoID(yes bool)`
+- `NoID(yes bool)`
 
-	Controls whether to set the feature.ID to "type/id" e.g. "node/475373687". For some use cases
-	this may be of limited use since the feature.Properies "type" and "id" are also set.
+  Controls whether to set the feature.ID to "type/id" e.g. "node/475373687". For some use cases
+  this may be of limited use since the feature.Properies "type" and "id" are also set.
 
-* `NoMeta(yes bool)`
+- `NoMeta(yes bool)`
 
-	Controls whether to populate the "meta" property which is a sub-map with the
-	following values from the osm element: "timestamp", "version", "changeset", "user", "uid".
+  Controls whether to populate the "meta" property which is a sub-map with the
+  following values from the osm element: "timestamp", "version", "changeset", "user", "uid".
 
-* `NoRelationMembership(yes bool)`
+- `NoRelationMembership(yes bool)`
 
-	Controls whether to include a list of the relations the osm element is a member of.
-	This info is set as the "relation" property which is an array of objects with the
-	following values from the relation: "id", "role", "tags".
+  Controls whether to include a list of the relations the osm element is a member of.
+  This info is set as the "relation" property which is an array of objects with the
+  following values from the relation: "id", "role", "tags".
 
-* `IncludeInvalidPolygons(yes bool)`
+- `IncludeInvalidPolygons(yes bool)`
 
-	By default, inner rings of 'multipolygon' without a matching outer ring will be ignored.
-	However, in some use cases the outer ring can be implied as the viewport bound and the inner rings
-	can then be rendered correctly. Polygons with a nil first ring will be need to be updated such
-	that the first ring is the viewport bound. This options will also include rings that do not
-	have matching endpoints. Usually this means one or more of the outer ways are missing.
-
+  By default, inner rings of 'multipolygon' without a matching outer ring will be ignored.
+  However, in some use cases the outer ring can be implied as the viewport bound and the inner rings
+  can then be rendered correctly. Polygons with a nil first ring will be need to be updated such
+  that the first ring is the viewport bound. This options will also include rings that do not
+  have matching endpoints. Usually this means one or more of the outer ways are missing.
 
 ### Benchmarks
 
@@ -78,4 +76,4 @@ BenchmarkConvert_NoIDsMetaMembership-4    20000     1718224 ns/op     671984 B/o
 
 #### Similar libraries in other languages:
 
-* [osmtogeojson](https://github.com/tyrasd/osmtogeojson) - Node
+- [osmtogeojson](https://github.com/tyrasd/osmtogeojson) - Node

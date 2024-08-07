@@ -3,10 +3,10 @@ package osmgeojson
 import (
 	"fmt"
 
+	"github.com/koudaimiwa/osm"
+	"github.com/koudaimiwa/osm/internal/mputil"
 	"github.com/paulmach/orb"
 	"github.com/paulmach/orb/geojson"
-	"github.com/paulmach/osm"
-	"github.com/paulmach/osm/internal/mputil"
 )
 
 type context struct {
