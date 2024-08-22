@@ -30,24 +30,13 @@ type relationSummary struct {
 	Tags map[string]string `json:"tags"`
 }
 
-var nodeMap map[osm.NodeID]*osm.Node
-
-func buildNodeMap(nodes osm.Nodes) {
-	nodeMap = make(map[osm.NodeID]*osm.Node, len(nodes))
-	for i := range nodes {
-		nodeMap[nodes[i].ID] = nodes[i]
-	}
-}
-
 // Convert takes a set of osm elements and converts them
 // to a geojson feature collection.
-func Convert(o *osm.OSM, opts ...Option) (*geojson.FeatureCollection, error) {
+func Convert(o *osm.OSM, wayMap map[osm.WayID]*osm.Way, opts ...Option) (*geojson.FeatureCollection, error) {
 	ctx := &context{
 		osm:       o,
 		skippable: make(map[osm.WayID]struct{}),
 	}
-
-	buildNodeMap(o.Nodes)
 
 	for _, opt := range opts {
 		if err := opt(ctx); err != nil {
@@ -55,10 +44,7 @@ func Convert(o *osm.OSM, opts ...Option) (*geojson.FeatureCollection, error) {
 		}
 	}
 
-	ctx.wayMap = make(map[osm.WayID]*osm.Way, len(o.Ways))
-	for _, w := range ctx.osm.Ways {
-		ctx.wayMap[w.ID] = w
-	}
+	ctx.wayMap = wayMap
 
 	ctx.wayMember = make(map[osm.NodeID]struct{}, len(ctx.osm.Nodes))
 	for _, w := range ctx.osm.Ways {
@@ -115,9 +101,17 @@ func Convert(o *osm.OSM, opts ...Option) (*geojson.FeatureCollection, error) {
 			if feature != nil {
 				features = append(features, feature)
 			}
+		} else {
+			feature := ctx.buildRouteLineString(relation)
+			if feature != nil {
+				features = append(features, feature)
+			} else {
+				feature := ctx.buildPolygon(relation)
+				if feature != nil {
+					features = append(features, feature)
+				}
+			}
 		}
-
-		// NOTE: we skip/ignore relation that aren't multipolygons, boundaries or routes
 	}
 
 	for _, way := range ctx.osm.Ways {
@@ -164,10 +158,10 @@ func Convert(o *osm.OSM, opts ...Option) (*geojson.FeatureCollection, error) {
 // the nodes+ways aren't augmented (ie. include the lat/lon on them).
 func (ctx *context) getNode(id osm.NodeID) *osm.Node {
 	if ctx.nodeMap == nil {
-		if node, exists := nodeMap[id]; exists {
-			return node
+		ctx.nodeMap = make(map[osm.NodeID]*osm.Node, len(ctx.osm.Nodes))
+		for _, n := range ctx.osm.Nodes {
+			ctx.nodeMap[n.ID] = n
 		}
-		return nil
 	}
 
 	return ctx.nodeMap[id]

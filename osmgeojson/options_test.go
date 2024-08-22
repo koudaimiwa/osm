@@ -154,8 +154,11 @@ func convertXML(t *testing.T, data string, opts ...Option) *geojson.FeatureColle
 	if err != nil {
 		t.Fatalf("failed to unmarshal xml: %v", err)
 	}
-
-	fc, err := Convert(o, opts...)
+	wayMap := make(map[osm.WayID]*osm.Way, len(o.Ways))
+	for _, w := range o.Ways {
+		wayMap[w.ID] = w
+	}
+	fc, err := Convert(o, wayMap, opts...)
 	if err != nil {
 		t.Fatalf("failed to convert: %v", err)
 	}

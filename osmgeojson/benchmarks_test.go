@@ -13,8 +13,12 @@ func BenchmarkConvert(b *testing.B) {
 
 	b.ReportAllocs()
 	b.ResetTimer()
+	wayMap := make(map[osm.WayID]*osm.Way, len(o.Ways))
+	for _, w := range o.Ways {
+		wayMap[w.ID] = w
+	}
 	for n := 0; n < b.N; n++ {
-		_, err := Convert(o)
+		_, err := Convert(o, wayMap)
 		if err != nil {
 			b.Fatalf("convert error: %v", err)
 		}
@@ -27,8 +31,12 @@ func BenchmarkConvertAnnotated(b *testing.B) {
 
 	b.ReportAllocs()
 	b.ResetTimer()
+	wayMap := make(map[osm.WayID]*osm.Way, len(o.Ways))
+	for _, w := range o.Ways {
+		wayMap[w.ID] = w
+	}
 	for n := 0; n < b.N; n++ {
-		_, err := Convert(o)
+		_, err := Convert(o, wayMap)
 		if err != nil {
 			b.Fatalf("convert error: %v", err)
 		}
@@ -40,8 +48,12 @@ func BenchmarkConvert_NoID(b *testing.B) {
 
 	b.ReportAllocs()
 	b.ResetTimer()
+	wayMap := make(map[osm.WayID]*osm.Way, len(o.Ways))
+	for _, w := range o.Ways {
+		wayMap[w.ID] = w
+	}
 	for n := 0; n < b.N; n++ {
-		_, err := Convert(o, NoID(true))
+		_, err := Convert(o, wayMap, NoID(true))
 		if err != nil {
 			b.Fatalf("convert error: %v", err)
 		}
@@ -53,8 +65,12 @@ func BenchmarkConvert_NoMeta(b *testing.B) {
 
 	b.ReportAllocs()
 	b.ResetTimer()
+	wayMap := make(map[osm.WayID]*osm.Way, len(o.Ways))
+	for _, w := range o.Ways {
+		wayMap[w.ID] = w
+	}
 	for n := 0; n < b.N; n++ {
-		_, err := Convert(o, NoMeta(true))
+		_, err := Convert(o, wayMap, NoMeta(true))
 		if err != nil {
 			b.Fatalf("convert error: %v", err)
 		}
@@ -66,8 +82,12 @@ func BenchmarkConvert_NoRelationMembership(b *testing.B) {
 
 	b.ReportAllocs()
 	b.ResetTimer()
+	wayMap := make(map[osm.WayID]*osm.Way, len(o.Ways))
+	for _, w := range o.Ways {
+		wayMap[w.ID] = w
+	}
 	for n := 0; n < b.N; n++ {
-		_, err := Convert(o, NoRelationMembership(true))
+		_, err := Convert(o, wayMap, NoRelationMembership(true))
 		if err != nil {
 			b.Fatalf("convert error: %v", err)
 		}
@@ -79,8 +99,12 @@ func BenchmarkConvert_NoIDsMetaMembership(b *testing.B) {
 
 	b.ReportAllocs()
 	b.ResetTimer()
+	wayMap := make(map[osm.WayID]*osm.Way, len(o.Ways))
+	for _, w := range o.Ways {
+		wayMap[w.ID] = w
+	}
 	for n := 0; n < b.N; n++ {
-		_, err := Convert(o, NoID(true), NoMeta(true), NoRelationMembership(true))
+		_, err := Convert(o, wayMap, NoID(true), NoMeta(true), NoRelationMembership(true))
 		if err != nil {
 			b.Fatalf("convert error: %v", err)
 		}

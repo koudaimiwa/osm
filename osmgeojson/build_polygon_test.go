@@ -319,8 +319,11 @@ func TestConvert_relationMembers(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unable to unmarhsal xml: %v", err)
 	}
-
-	fc, err := Convert(o)
+	wayMap := make(map[osm.WayID]*osm.Way, len(o.Ways))
+	for _, w := range o.Ways {
+		wayMap[w.ID] = w
+	}
+	fc, err := Convert(o, wayMap)
 	if err != nil {
 		t.Fatalf("convert error: %v", err)
 	}
@@ -652,8 +655,11 @@ func TestConvert_multiPolygonMultiOuter(t *testing.T) {
 
 		// handle role-less members as outer ways
 		o.Relations[0].Members[3].Role = ""
-
-		fc, err := Convert(o)
+		wayMap := make(map[osm.WayID]*osm.Way, len(o.Ways))
+		for _, w := range o.Ways {
+			wayMap[w.ID] = w
+		}
+		fc, err := Convert(o, wayMap)
 		if err != nil {
 			t.Fatalf("convert error: %v", err)
 		}
