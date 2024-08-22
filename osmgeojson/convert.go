@@ -102,6 +102,7 @@ func Convert(o *osm.OSM, wayMap map[osm.WayID]*osm.Way, opts ...Option) (*geojso
 				features = append(features, feature)
 			}
 		} else {
+			//NOTE: 変換できる場合は取得しておく
 			feature := ctx.buildRouteLineString(relation)
 			if feature != nil {
 				features = append(features, feature)
